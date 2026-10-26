@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spanish Conjugation Deck</title>
+<meta name="description" content="A free Anki deck of 9,000+ Spanish verb conjugation cloze cards, each with an example sentence. Preview every card and download the deck.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: hero with the download, a live sample card, then a filterable browser of every card in the deck. */
+:root {
+  --bg: #faf6ef; --surface: #ffffff; --surface-2: #f3ece0; --line: #e4d9c6;
+  --ink: #2a211b; --muted: #74675b; --accent: #c2491d; --accent-ink: #ffffff; --accent-soft: #fbe5da;
+  --cloze: #0b63c4; --regular: #2f8a4a; --morph: #c73641; --ortho: #a87300;
+  --shadow: 0 1px 2px rgba(60,40,20,.06), 0 6px 20px rgba(60,40,20,.06);
+  --display: 'Fraunces', Georgia, serif;
+  --body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #18140f; --surface: #221c16; --surface-2: #2c251d; --line: #3b3127;
+    --ink: #f1e8dc; --muted: #ab9d8e; --accent: #f07a45; --accent-ink: #1b120c; --accent-soft: #3d2519;
+    --cloze: #6aa8ff; --regular: #6cc985; --morph: #ff7b84; --ortho: #f1bd45;
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--body); }
+a { color: var(--accent); }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+button, input, select { font: inherit; color: inherit; }
+
+header.hero { padding: 56px 0 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(36px, 6vw, 56px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -.01em; }
+.lede { font-size: 18px; color: var(--muted); margin: 0 0 24px; max-width: 34em; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 10px; border: 0; border-radius: 10px; padding: 14px 22px; font-weight: 600; text-decoration: none; cursor: pointer; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { filter: brightness(1.07); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--surface-2); }
+.btn small { font-weight: 500; opacity: .8; }
+.stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 28px; }
+.stat b { display: block; font-family: var(--display); font-size: 28px; line-height: 1.1; }
+.stat span { font-size: 13px; color: var(--muted); }
+
+/* Anki-style card */
+.anki { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 24px 22px; text-align: center; font-size: 19px; }
+.anki .verb-header { font-family: var(--display); font-size: 26px; font-weight: 700; }
+.anki .person-info { font-size: 17px; }
+.anki .form-info { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+.anki .sentence { line-height: 1.5; }
+.anki .cloze { color: var(--cloze); font-weight: 700; }
+.anki .gap { color: var(--cloze); font-weight: 600; white-space: nowrap; }
+.anki .extra { text-align: left; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 14px; color: var(--muted); }
+.anki .extra strong { color: var(--ink); font-weight: 600; }
+.reg-regular { color: var(--regular); font-weight: 600; }
+.reg-morphologically_irregular { color: var(--morph); font-weight: 600; }
+.reg-orthographically_irregular { color: var(--ortho); font-weight: 600; }
+
+.sample { position: relative; }
+.sample .anki { min-height: 260px; display: flex; flex-direction: column; justify-content: center; }
+.sample-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; gap: 8px; }
+.sample-bar .label { font-size: 13px; color: var(--muted); }
+.chip-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 14px; font-size: 14px; cursor: pointer; }
+.chip-btn:hover { background: var(--surface-2); }
+
+section { padding: 32px 0; }
+h2 { font-family: var(--display); font-weight: 700; font-size: 28px; margin: 0 0 6px; }
+.section-note { color: var(--muted); margin: 0 0 20px; }
+
+.legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 20px; padding: 0; margin: 0; list-style: none; font-size: 15px; }
+.legend li { display: flex; gap: 10px; align-items: baseline; }
+.legend .sym { font-family: ui-monospace, monospace; color: var(--accent); min-width: 3.2em; }
+.howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 24px; }
+.howto div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; font-size: 15px; }
+.howto b { display: block; margin-bottom: 4px; }
+
+/* Browser */
+.filters { display: grid; grid-template-columns: 2fr 1.4fr 1fr 1.3fr; gap: 10px; margin-bottom: 14px; }
+.filters input, .filters select { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.filters input:focus, .filters select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.count { color: var(--muted); font-size: 14px; }
+.view-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.view-toggle button { border: 0; background: var(--surface); padding: 7px 14px; font-size: 14px; cursor: pointer; }
+.view-toggle button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.view-toggle button:disabled { opacity: .45; cursor: not-allowed; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.grid .anki { font-size: 17px; padding: 18px 16px; cursor: pointer; text-align: left; transition: border-color .15s; }
+.grid .anki:hover { border-color: var(--accent); }
+.grid .anki:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+.card-top .verb-header { font-size: 20px; }
+.card-top .meta { font-size: 13px; color: var(--muted); text-align: right; }
+.grid .anki .extra { margin-top: 12px; padding-top: 10px; font-size: 13px; }
+.speak { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 2px 4px; font-size: 13px; }
+.speak:hover { color: var(--accent); }
+.more { display: flex; justify-content: center; margin: 24px 0 8px; }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; }
+
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+th { font-weight: 600; font-size: 13px; color: var(--muted); background: var(--surface-2); }
+td.form { color: var(--muted); font-size: 13px; }
+tr:last-child td { border-bottom: 0; }
+td .irreg { color: var(--morph); font-weight: 600; }
+td .ortho { color: var(--ortho); font-weight: 600; }
+
+footer { border-top: 1px solid var(--line); margin-top: 32px; padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 820px) {
+  header.hero { grid-template-columns: 1fr; padding-top: 36px; gap: 28px; }
+  .filters { grid-template-columns: 1fr 1fr; }
+  .filters .search { grid-column: 1 / -1; }
+}
+@media (max-width: 420px) {
+  .grid { grid-template-columns: 1fr; }
+  .btn { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Free Anki deck</p>
+      <h1>Spanish verb conjugations, one sentence at a time</h1>
+      <p class="lede">Every card is a real sentence with the verb blanked out. You see the verb, the person and the tense, then type or recall the conjugated form.</p>
+      <div class="actions">
+        <a class="btn btn-primary" id="download" href="spanish_conjugation.apkg" download>Download deck <small id="deck-size">.apkg</small></a>
+        <a class="btn btn-ghost" href="#browse">Browse the cards</a>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="sample">
+      <div class="anki" id="sample" aria-live="polite"></div>
+      <div class="sample-bar">
+        <span class="label" id="sample-label">Front of card</span>
+        <span>
+          <button class="chip-btn" id="sample-flip">Show answer</button>
+          <button class="chip-btn" id="sample-next">Another</button>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Reading a card</h2>
+    <p class="section-note">The tense is marked with a symbol on both sides of the gap, so you can tell it at a glance during review.</p>
+    <ul class="legend" id="legend"></ul>
+    <div class="howto">
+      <div><b>Colour-coded regularity</b>The back of each card says whether the form is <span class="reg-regular">regular</span>, <span class="reg-morphologically_irregular">morphologically irregular</span> or <span class="reg-orthographically_irregular">orthographically irregular</span>, next to the form a regular verb would have.</div>
+      <div><b>Tagged for filtering</b>Notes carry <code>verb::</code>, <code>form::</code> and <code>person::</code> tags, so you can build a filtered deck in Anki for just the subjunctive, or just <i>ser</i> and <i>ir</i>.</div>
+      <div><b>Importing</b>In Anki, choose File → Import and pick the downloaded file. Re-importing a newer version updates your existing cards and keeps your progress.</div>
+    </div>
+  </section>
+
+  <section id="browse">
+    <h2>Browse every card</h2>
+    <p class="section-note">Click a card to see its back.</p>
+    <div class="filters">
+      <input class="search" id="q" type="search" placeholder="Search a verb, form or sentence…" aria-label="Search">
+      <select id="f-form" aria-label="Tense"><option value="">All tenses</option></select>
+      <select id="f-person" aria-label="Person"><option value="">All persons</option></select>
+      <select id="f-class" aria-label="Regularity"><option value="">All regularity</option></select>
+    </div>
+    <div class="toolbar">
+      <span class="count" id="count">Loading cards…</span>
+      <span class="view-toggle" role="group" aria-label="View">
+        <button id="v-cards" aria-pressed="true">Cards</button>
+        <button id="v-table" aria-pressed="false" title="Search for a single verb to see its table">Verb table</button>
+      </span>
+    </div>
+    <div id="results"></div>
+    <div class="more"><button class="btn btn-ghost" id="more" hidden>Show more</button></div>
+  </section>
+</div>
+<footer>
+  <div class="wrap">
+    <span>Example sentences were generated with a language model and checked against RAE conjugations. Spot a mistake? <a href="https://github.com/real-shafe/spanish-conjugation-anki/issues">Open an issue</a>.</span>
+    <span><a href="https://github.com/real-shafe/spanish-conjugation-anki">Source</a> · <a href="https://shafe.dev">shafe.dev</a></span>
+  </div>
+</footer>
+
+<script>
+// Labels and hint symbols mirror create-anki-deck.py so the preview matches what Anki shows.
+const PERSON = { not_applicable: '', '1st_singular': 'yo', '2nd_singular': 'tú', '3rd_singular': 'él/ella',
+  '1st_plural': 'nosotros', '2nd_plural': 'vosotros', '3rd_plural': 'ellos/ellas' };
+const PERSON_ORDER = ['1st_singular', '2nd_singular', '3rd_singular', '1st_plural', '2nd_plural', '3rd_plural'];
+const SYMBOL = { infinitivo: '', gerundio: '', participio: '', indicativo_presente: '⊙⊙⊙', indicativo_imperfecto: '⇠⇠⇠',
+  indicativo_preterito: '↧↧↧', indicativo_futuro: '→→→', condicional: '◇◇◇', subjuntivo_presente: '∿∿∿',
+  subjuntivo_imperfecto: '↫↫↫', subjuntivo_futuro: '↬↬↬', imperativo_afirmativo: '!!!', imperativo_negativo: '!!!' };
+const FORM_NAME = { infinitivo: 'infinitivo', gerundio: 'gerundio', participio: 'participio',
+  indicativo_presente: 'indicativo presente', indicativo_imperfecto: 'indicativo imperfecto',
+  indicativo_preterito: 'indicativo pretérito', indicativo_futuro: 'indicativo futuro', condicional: 'condicional',
+  subjuntivo_presente: 'subjuntivo presente', subjuntivo_imperfecto: 'subjuntivo imperfecto',
+  subjuntivo_futuro: 'subjuntivo futuro', imperativo_afirmativo: 'imperativo afirmativo', imperativo_negativo: 'imperativo negativo' };
+const CLASS_NAME = { regular: 'regular', morphologically_irregular: 'morphologically irregular', orthographically_irregular: 'orthographically irregular' };
+const CLASS_NOTE = { regular: 'hypothetical and real form are equivalent',
+  morphologically_irregular: 'form does not follow standard conjugation rules',
+  orthographically_irregular: 'spoken word is regular, but spelling is irregular' };
+const PAGE = 48;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fold = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+let D, cards = [], filtered = [], shown = 0, view = 'cards', sampleCard, sampleBack = false;
+
+function formLabel(form) { const s = SYMBOL[form]; return s ? `${s} ${FORM_NAME[form]} ${s}` : FORM_NAME[form]; }
+function hint(c) {
+  const p = PERSON[c.person], s = SYMBOL[c.form];
+  return [s, p, c.verb, p, s].filter(Boolean).join('...');
+}
+
+function cardHTML(c, back, compact) {
+  const p = PERSON[c.person];
+  const before = esc(c.sentence.slice(0, c.start)), after = esc(c.sentence.slice(c.end));
+  const mid = back ? `<span class="cloze">${esc(c.sentence.slice(c.start, c.end))}</span>` : `<span class="gap">[${esc(hint(c))}]</span>`;
+  const head = compact
+    ? `<div class="card-top"><span class="verb-header">${esc(c.verb)}</span><span class="meta">${p ? esc(p) + '<br>' : ''}${esc(FORM_NAME[c.form])}</span></div>`
+    : `<div class="verb-header">${esc(c.verb)}</div>${p ? `<div class="person-info">${esc(p)}</div>` : ''}<div class="form-info">${esc(formLabel(c.form))}</div>`;
+  const extra = back ? `<div class="extra">
+      <strong>Hypothetical regular form:</strong> ${esc(c.hypo)}<br>
+      <strong>Regularity class:</strong> <span class="reg-${c.cls}">${CLASS_NAME[c.cls]}</span> (${CLASS_NOTE[c.cls]})<br>
+      <strong>Conjugation ID:</strong> ${esc(c.id)}
+      ${'speechSynthesis' in window ? `<button class="speak" data-say="${esc(c.sentence)}" aria-label="Read sentence aloud">🔊 Listen</button>` : ''}
+    </div>` : '';
+  return head + `<div class="sentence">${before}${mid}${after}</div>` + extra;
+}
+
+function say(text) {
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-ES';
+  const v = speechSynthesis.getVoices().find(v => v.lang.startsWith('es'));
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+
+function renderSample() {
+  $('sample').innerHTML = cardHTML(sampleCard, sampleBack, false);
+  $('sample-flip').textContent = sampleBack ? 'Hide answer' : 'Show answer';
+  $('sample-label').textContent = sampleBack ? 'Back of card' : 'Front of card';
+}
+function nextSample() {
+  // Prefer conjugated forms for the hero card; they show off the hint symbols.
+  const pool = cards.filter(c => c.person !== 'not_applicable');
+  sampleCard = pool[Math.floor(Math.random() * pool.length)];
+  sampleBack = false;
+  renderSample();
+}
+
+function applyFilters() {
+  const q = fold($('q').value.trim()), form = $('f-form').value, person = $('f-person').value, cls = $('f-class').value;
+  filtered = cards.filter(c =>
+    (!form || c.form === form) && (!person || c.person === person) && (!cls || c.cls === cls) &&
+    (!q || c.key.includes(q)));
+  // An exact verb match floats to the top so searching "ir" isn't buried under "decir", "salir"…
+  if (q) filtered.sort((a, b) => (fold(b.verb) === q) - (fold(a.verb) === q));
+  shown = 0;
+  const verb = singleVerb(q);
+  $('v-table').disabled = !verb;
+  if (!verb && view === 'table') setView('cards');
+  render();
+}
+
+function singleVerb(q) {
+  if (!q) return null;
+  return D.verbs.find(v => fold(v) === q) || (new Set(filtered.map(c => c.verb)).size === 1 ? filtered[0].verb : null);
+}
+
+function render() {
+  const total = filtered.length;
+  $('count').textContent = total === cards.length ? `${total.toLocaleString()} cards` : `${total.toLocaleString()} of ${cards.length.toLocaleString()} cards`;
+  if (view === 'table') return renderTable(singleVerb(fold($('q').value.trim())));
+  if (!total) { $('results').innerHTML = '<p class="empty">No cards match those filters.</p>'; $('more').hidden = true; return; }
+  if (shown === 0) $('results').innerHTML = '<div class="grid" id="grid"></div>';
+  const next = filtered.slice(shown, shown + PAGE);
+  $('grid').insertAdjacentHTML('beforeend', next.map((c, i) =>
+    `<article class="anki" tabindex="0" data-i="${shown + i}" aria-expanded="false">${cardHTML(c, false, true)}</article>`).join(''));
+  shown += next.length;
+  $('more').hidden = shown >= total;
+  $('more').textContent = `Show more (${(total - shown).toLocaleString()} left)`;
+}
+
+function renderTable(verb) {
+  $('more').hidden = true;
+  const rows = cards.filter(c => c.verb === verb);
+  const at = (form, person) => rows.find(c => c.form === form && c.person === person);
+  const cell = c => !c ? '—' : c.cls === 'regular' ? esc(c.conj)
+    : `<span class="${c.cls === 'morphologically_irregular' ? 'irreg' : 'ortho'}" title="${CLASS_NAME[c.cls]}">${esc(c.conj)}</span>`;
+  const nonFinite = D.forms.filter(f => !SYMBOL[f]).map(f => `${FORM_NAME[f]}: <b>${cell(at(f, 'not_applicable'))}</b>`).join(' · ');
+  const body = D.forms.filter(f => SYMBOL[f]).map(f =>
+    `<tr><td class="form">${esc(FORM_NAME[f])}</td>${PERSON_ORDER.map(p => `<td>${cell(at(f, p))}</td>`).join('')}</tr>`).join('');
+  $('results').innerHTML = `<p class="section-note"><b>${esc(verb)}</b> · ${nonFinite}. Irregular forms are in <span class="reg-morphologically_irregular">red</span>, spelling changes in <span class="reg-orthographically_irregular">amber</span>.</p>
+    <div class="table-wrap"><table><thead><tr><th></th>${PERSON_ORDER.map(p => `<th>${PERSON[p]}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table></div>`;
+}
+
+function setView(v) {
+  view = v;
+  $('v-cards').setAttribute('aria-pressed', v === 'cards');
+  $('v-table').setAttribute('aria-pressed', v === 'table');
+  shown = 0;
+  render();
+}
+
+function toggleCard(el) {
+  const back = el.getAttribute('aria-expanded') !== 'true';
+  el.setAttribute('aria-expanded', back);
+  el.innerHTML = cardHTML(filtered[+el.dataset.i], back, true);
+}
+
+async function init() {
+  D = await (await fetch('cards.json')).json();
+  cards = D.cards.map(([v, f, p, k, id, conj, hypo, sentence, start, end]) => {
+    const c = { verb: D.verbs[v], form: D.forms[f], person: D.persons[p], cls: D.classes[k], id, conj, hypo, sentence, start, end };
+    c.key = fold([c.verb, c.conj, FORM_NAME[c.form], PERSON[c.person], sentence].join(' | '));
+    return c;
+  });
+
+  $('deck-size').textContent = `${(D.deckBytes / 1e6).toFixed(1)} MB .apkg`;
+  $('stats').innerHTML = [[cards.length.toLocaleString(), 'cards'], [D.verbs.length, 'common verbs'],
+    [D.forms.length, 'tenses and forms'], [cards.filter(c => c.cls !== 'regular').length.toLocaleString(), 'irregular forms']]
+    .map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+  $('legend').innerHTML = D.forms.filter(f => SYMBOL[f]).map(f => `<li><span class="sym">${SYMBOL[f]}</span>${FORM_NAME[f]}</li>`).join('');
+
+  for (const f of D.forms) $('f-form').add(new Option(FORM_NAME[f], f));
+  for (const p of ['not_applicable', ...PERSON_ORDER]) $('f-person').add(new Option(PERSON[p] || 'none (infinitive, gerund, participle)', p));
+  for (const k of D.classes) $('f-class').add(new Option(CLASS_NAME[k], k));
+
+  nextSample();
+  applyFilters();
+}
+
+$('sample-flip').onclick = () => { sampleBack = !sampleBack; renderSample(); };
+$('sample-next').onclick = nextSample;
+$('more').onclick = render;
+$('v-cards').onclick = () => setView('cards');
+$('v-table').onclick = () => setView('table');
+let t;
+$('q').oninput = () => { clearTimeout(t); t = setTimeout(applyFilters, 120); };
+for (const id of ['f-form', 'f-person', 'f-class']) $(id).onchange = applyFilters;
+document.addEventListener('click', e => {
+  const s = e.target.closest('.speak');
+  if (s) { e.stopPropagation(); return say(s.dataset.say); }
+  const a = e.target.closest('.grid .anki');
+  if (a) toggleCard(a);
+});
+document.addEventListener('keydown', e => {
+  const a = e.target.closest?.('.grid .anki');
+  if (a && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleCard(a); }
+});
+init().catch(() => { $('count').textContent = 'Could not load the cards. The deck download still works.'; });
+</script>
+</body>
+</html>

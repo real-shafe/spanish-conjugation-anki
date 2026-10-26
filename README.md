@@ -54,6 +54,21 @@ produce audio using OpenAI text-to-speech.
 | `speaker_gender`                   | gender of the audio voice (e.g. `male`, `female`)         | `male`                              |
 | `audio_path`                       | path to the audio recording of the sentence              | `audio/1_3_11.mp3`                  |
 
+## Website
+
+https://spanish-anki.shafe.dev previews every card and offers the deck as a
+download. `python build_site.py` builds the deck into
+`public/spanish_conjugation.apkg` and writes `public/cards.json` for the
+preview; `public/index.html` is the page. Audio is gitignored, so the deck is
+built without it unless `audio/` exists locally.
+
+It is served by a Cloudflare Worker with static assets (`wrangler.jsonc`).
+Both generated files are gitignored, so build before deploying:
+
+```bash
+python build_site.py && npx wrangler deploy
+```
+
 Join the discussion on
 [Discord](https://discordapp.com/channels/1373077048146264166/1373081089349783753)
 for questions or improvements.

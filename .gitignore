@@ -3,3 +3,6 @@
 audio
 __pycache__
 .pytest_cache
+.wrangler
+public/cards.json
+public/*.apkg

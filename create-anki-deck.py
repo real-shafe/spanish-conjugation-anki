@@ -1,6 +1,5 @@
 import sqlite3
 import genanki
-import random
 import re
 import os
 import time
@@ -12,7 +11,7 @@ def log(message, level="INFO"):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"[{timestamp}] [{level}] {message}")
 
-def main():
+def main(output_file="spanish_conjugation.apkg"):
     start_time = time.time()
     log("Starting Spanish conjugation Anki deck generation")
     
@@ -78,9 +77,9 @@ def main():
     con.close()
     log("Database connection closed")
     
-    # Create model and deck IDs
-    model_id = random.randrange(1 << 30, 1 << 31)
-    deck_id = random.randrange(1 << 30, 1 << 31)
+    # Fixed IDs so re-importing a rebuilt deck updates it instead of duplicating it
+    model_id = 1607392319
+    deck_id = 2059400110
     log(f"Generated model ID: {model_id}, deck ID: {deck_id}")
     
     # Mapping dictionaries
@@ -314,11 +313,14 @@ def main():
                 extra_parts.append(f"<strong>Conjugation ID:</strong> {row['conjugation_id']}")
                 
                 # Handle audio
-                if row.get('audio_path'):
-                    audio_filename = row['audio_path'].replace('\\', '/')
+                # Audio is gitignored, so only reference files that exist locally
+                audio_filename = (row.get('audio_path') or '').replace('\\', '/')
+                if audio_filename and os.path.exists(audio_filename):
                     audio_file_only = audio_filename.split('/')[-1]
                     extra_parts.append(f"<br><br>[sound:{audio_file_only}]")
-                    media_files.append(row['audio_path'])
+                    media_files.append(audio_filename)
+                elif audio_filename:
+                    missing_audio_files.append(audio_filename)
                 
                 extra_parts.append('<div class="contact-info">Any questions/problems/suggestions regarding this deck? You may reach out to the creator through hex5e@outlook.com</div>')
                 extra_parts.append('</div>')
@@ -376,7 +378,6 @@ def main():
     log(f"Added {media_added} media files successfully, {len(missing_audio_files)} files missing")
     
     # Write package to file
-    output_file = 'spanish_conjugation.apkg'
     log(f"Writing package to file: {output_file}")
     
     try:
